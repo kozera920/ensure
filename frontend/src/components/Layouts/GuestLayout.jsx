@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import {useStateContext} from '../contexts/ContextProvider.jsx';
+import {useStateContext} from '../../contexts/ContextProvider.jsx';
 import { Navigate } from 'react-router-dom';
 
 const GuestLayout = () => {

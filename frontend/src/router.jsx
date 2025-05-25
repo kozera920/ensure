@@ -3,8 +3,8 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx';
 import Users from './pages/Users.jsx';
 import NotFound from './pages/NotFound.jsx';
-import DefaultLayout from './components/DefaultLayout.jsx';
-import GuestLayout from './components/GuestLayout.jsx';
+import DefaultLayout from './components/Layouts/DefaultLayout.jsx';
+import GuestLayout from './components/Layouts/GuestLayout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import { Navigate } from 'react-router-dom';
 
