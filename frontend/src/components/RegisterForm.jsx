@@ -5,64 +5,71 @@ import axiosClient from '../axios-client.js'
 import { useStateContext } from '../contexts/ContextProvider'
 
 const RegisterForm = () => {
-  const [tab, setTab] = useState('individual');
+   const [tab, setTab] = useState('individual');
+   const [errors, setErrors] = useState(null);
 
-  // Individual refs
+  // Refs for form inputs
+  const nameRef = useRef();
   const nidaRef = useRef();
-  const namesRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-
-  // Company refs
-  const tinRef = useRef();
+  const passwordConfirmationRef = useRef();
+  const termsRef = useRef();
+  
   const companyNameRef = useRef();
-  const companyPhoneRef = useRef();
+  const tinRef = useRef();
+  const phoneRef = useRef();
   const companyEmailRef = useRef();
   const companyPasswordRef = useRef();
-  const companyPasswordConfirmRef = useRef();
+  const companyPasswordConfirmationRef = useRef();
+  const companyTermsRef = useRef();
 
-  const {setUser,setToken} = useStateContext();
+  const { setUser, setToken } = useStateContext();
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setErrors(null);
 
-    let payload = {};
+    let payload = {
+      user_type: tab,
+      terms: tab === 'individual' ? termsRef.current.checked : companyTermsRef.current.checked
+    };
+
     if (tab === 'individual') {
       payload = {
+        ...payload,
+        name: nameRef.current.value,
         nida: nidaRef.current.value,
-        names: namesRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
-        password_Confirm: passwordConfirmRef.current.value,
+        password_confirmation: passwordConfirmationRef.current.value,
       };
     } else {
       payload = {
+        ...payload,
+        company_name: companyNameRef.current.value,
         tin: tinRef.current.value,
-        companyName: companyNameRef.current.value,
-        phone: companyPhoneRef.current.value,
+        phone: phoneRef.current.value,
         email: companyEmailRef.current.value,
         password: companyPasswordRef.current.value,
-        password_Confirm: companyPasswordConfirmRef.current.value,
+        password_confirmation: companyPasswordConfirmationRef.current.value,
       };
     }
 
-    // Handle form submission logic here
-    //console.log(payload);
 
     axiosClient.post('/register', payload)
-      .then(response => {
-        console.log('Registration successful:', response.data);
-        // Optionally redirect or show a success message
-        setUser(response.data.user)
-        setToken(response.data.token)
+      .then(({ data }) => {
+        setUser(data.user);
+        setToken(data.token);
       })
-      .catch(error => {
-        console.error('Registration error:', error.response ? error.response.data : error.message);
-        // Optionally show an error message to the user
+      .catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          setErrors(response.data.errors);
+        }
       });
-
   };
+
 
   return (
     <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-12">
@@ -88,73 +95,173 @@ const RegisterForm = () => {
           Company
         </button>
       </div>
-      {tab === 'individual' ? (
-        <form onSubmit={onSubmit} id="form-individual" className="space-y-4">
-          <div>
-            <label className="block text-sm mb-1">ID Number</label>
-            <input ref={nidaRef} type="text" className="w-full border rounded-md px-4 py-2" placeholder="ID Number" />
-          </div>
+      
+      {errors && (
+        <div className="p-4 mb-4 bg-red-100 text-red-700 rounded">
+          {Object.keys(errors).map(key => (
+            <p key={key}>{errors[key][0]}</p>
+          ))}
+        </div>
+      )}
+
+     {tab === 'individual' ? (
+        <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <label className="block text-sm mb-1">Full Name</label>
-            <input ref={namesRef} type="text" className="w-full border rounded-md px-4 py-2" placeholder="Full Name" />
+            <input
+              ref={nameRef}
+              type="text"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Full Name"
+              required
+            />
+            {errors?.name && <p className="text-red-500 text-sm">{errors.name[0]}</p>}
+          </div>
+          <div>
+            <label className="block text-sm mb-1">ID Number (NIDA)</label>
+            <input
+              ref={nidaRef}
+              type="text"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="NIDA Number"
+              required
+            />
+            {errors?.nida && <p className="text-red-500 text-sm">{errors.nida[0]}</p>}
           </div>
           <div>
             <label className="block text-sm mb-1">Email</label>
-            <input ref={emailRef} type="email" className="w-full border rounded-md px-4 py-2" placeholder="Email address" />
+            <input
+              ref={emailRef}
+              type="email"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Email address"
+              required
+            />
+            {errors?.email && <p className="text-red-500 text-sm">{errors.email[0]}</p>}
           </div>
           <div>
             <label className="block text-sm mb-1">Password</label>
-            <input ref={passwordRef} type="password" className="w-full border rounded-md px-4 py-2" placeholder="Password" />
+            <input
+              ref={passwordRef}
+              type="password"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Password"
+              required
+            />
+            {errors?.password && <p className="text-red-500 text-sm">{errors.password[0]}</p>}
           </div>
           <div>
             <label className="block text-sm mb-1">Confirm Password</label>
-            <input ref={passwordConfirmRef} type="password" className="w-full border rounded-md px-4 py-2" placeholder="Confirm Password" />
+            <input
+              ref={passwordConfirmationRef}
+              type="password"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Confirm Password"
+              required
+            />
           </div>
           <label className="flex items-center text-sm gap-2">
-            <input type="checkbox" />
-            I agree to the <Link href="#" className="text-blue-600 underline">Privacy Policy</Link> and <Link href="#" className="text-blue-600 underline">Terms of Use</Link>
+            <input
+              ref={termsRef}
+              type="checkbox"
+              required
+            />
+            I agree to the <Link to="#" className="text-blue-600 underline">Privacy Policy</Link> and <Link to="#" className="text-blue-600 underline">Terms of Use</Link>
+            {errors?.terms && <p className="text-red-500 text-sm">{errors.terms[0]}</p>}
           </label>
-          <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800">Create Account</button>
+          <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800">
+            Create Account
+          </button>
         </form>
       ) : (
-        <form onSubmit={onSubmit} id="form-company" className="space-y-4">
-          <div>
-            <label className="block text-sm mb-1">TIN Number</label>
-            <input ref={tinRef} type="text" className="w-full border rounded-md px-4 py-2" placeholder="TIN Number" />
-          </div>
+        <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <label className="block text-sm mb-1">Company Name</label>
-            <input ref={companyNameRef} type="text" className="w-full border rounded-md px-4 py-2" placeholder="Company Name" />
+            <input
+              ref={companyNameRef}
+              type="text"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Company Name"
+              required
+            />
+            {errors?.company_name && <p className="text-red-500 text-sm">{errors.company_name[0]}</p>}
+          </div>
+          <div>
+            <label className="block text-sm mb-1">TIN Number</label>
+            <input
+              ref={tinRef}
+              type="text"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="TIN Number"
+              required
+            />
+            {errors?.tin && <p className="text-red-500 text-sm">{errors.tin[0]}</p>}
           </div>
           <div>
             <label className="block text-sm mb-1">Phone Number</label>
-            <input ref={companyPhoneRef} type="text" className="w-full border rounded-md px-4 py-2" placeholder="Phone number" />
+            <input
+              ref={phoneRef}
+              type="text"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Phone Number"
+              required
+            />
+            {errors?.phone && <p className="text-red-500 text-sm">{errors.phone[0]}</p>}
           </div>
           <div>
             <label className="block text-sm mb-1">Email</label>
-            <input ref={companyEmailRef} type="email" className="w-full border rounded-md px-4 py-2" placeholder="Email address" />
+            <input
+              ref={companyEmailRef}
+              type="email"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Email address"
+              required
+            />
+            {errors?.email && <p className="text-red-500 text-sm">{errors.email[0]}</p>}
           </div>
           <div>
             <label className="block text-sm mb-1">Password</label>
-            <input ref={companyPasswordRef} type="password" className="w-full border rounded-md px-4 py-2" placeholder="Password" />
+            <input
+              ref={companyPasswordRef}
+              type="password"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Password"
+              required
+            />
+            {errors?.password && <p className="text-red-500 text-sm">{errors.password[0]}</p>}
           </div>
           <div>
             <label className="block text-sm mb-1">Confirm Password</label>
-            <input ref={companyPasswordConfirmRef} type="password" className="w-full border rounded-md px-4 py-2" placeholder="Confirm Password" />
+            <input
+              ref={companyPasswordConfirmationRef}
+              type="password"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder="Confirm Password"
+              required
+            />
           </div>
           <label className="flex items-center text-sm gap-2">
-            <input type="checkbox" />
-            I agree to the <Link href="#" className="text-blue-600 underline">Privacy Policy</Link> and <Link href="#" className="text-blue-600 underline">Terms of Use</Link>
+            <input
+              ref={companyTermsRef}
+              type="checkbox"
+              required
+            />
+            I agree to the <Link to="#" className="text-blue-600 underline">Privacy Policy</Link> and <Link to="#" className="text-blue-600 underline">Terms of Use</Link>
+            {errors?.terms && <p className="text-red-500 text-sm">{errors.terms[0]}</p>}
           </label>
-          <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800">Create Account</button>
+          <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800">
+            Create Account
+          </button>
         </form>
       )}
+
       <p className="text-sm mt-4">
-        Already have an account?
+        Already have an account?{' '}
         <Link to="/login" className="text-blue-600 hover:underline">Log in</Link>
       </p>
     </div>
-  )
-}
+  );
+};
+
 
 export default RegisterForm
