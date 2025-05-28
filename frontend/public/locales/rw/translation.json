@@ -1,0 +1,35 @@
+{
+  "login": {
+    "welcome": "Murakaza neza",
+    "login": "Injira muri E-nsure",
+    "email": "Numero ya telefoni cyangwa email",
+    "password": "Ijambobanga",
+    "remember": "Ibuka izina ryanjye",
+    "loginB": "Injira",
+    "account": "Nta konti ufite?",
+    "difficulties": "Ufite ikibazo?",
+    "contactEnsure": "Hamagara ubufasha bwa E-nsure",
+    "agent": "Ajenti",
+    "forgotpassword": "Wibagiwe ijambobanga?",
+    "createAccount": "Fungura konti"
+  },
+  "register": {
+    "createTitle": "Fungura konti yawe",
+    "individual": "Umuntu ku giti cye",
+    "company": "Kompanyi",
+    "fullName": "Amazina yose",
+    "nida": "Indangamuntu (NIDA)",
+    "email": "Imeli",
+    "password": "Ijambobanga",
+    "confirmPassword": "Emeza ijambobanga",
+    "companyName": "Izina rya kompanyi",
+    "tin": "Nimero ya TIN",
+    "phone": "Numero ya telefoni",
+    "agree": "Nemeye",
+    "privacy": "Politiki y’ibanga",
+    "terms": "Amabwiriza y’imikoreshereze",
+    "createAccount": "Fungura konti",
+    "alreadyHaveAccount": "Ufite konti?",
+    "loginHere": "Injira hano"
+  }
+}

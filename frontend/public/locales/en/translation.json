@@ -1,0 +1,35 @@
+{
+  "login": {
+    "welcome": "Welcome",
+    "login": "Log In to E-nsure",
+    "email": "Phone number or email",
+    "password": "Password",
+    "remember": "Remember me",
+    "loginB": "Login",
+    "account": "Don’t have an account?",
+    "difficulties": "Having Difficulties?",
+    "contactEnsure": "Contact E-nsure Support",
+    "agent": "Agent",
+    "forgotpassword": "Forgot password?",
+     "createAccount": "Create account"
+  },
+   "register": {
+    "createTitle": "Create your account",
+    "individual": "Individual",
+    "company": "Company",
+    "fullName": "Full Name",
+    "nida": "ID Number (NIDA)",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "companyName": "Company Name",
+    "tin": "TIN Number",
+    "phone": "Phone Number",
+    "agree": "I agree to the",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "createAccount": "Create Account",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginHere": "Log in"
+  }
+}

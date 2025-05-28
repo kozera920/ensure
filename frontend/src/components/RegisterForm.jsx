@@ -1,10 +1,16 @@
 import React, { useState, useRef } from 'react'
 import { data, Link } from 'react-router-dom'
 import logo from '../assets/images/logo.png'
+import usflag from '../assets/images/usflag.png';
 import axiosClient from '../axios-client.js'
 import { useStateContext } from '../contexts/ContextProvider'
+import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 const RegisterForm = () => {
+
+   const { t } = useTranslation();
+
    const [tab, setTab] = useState('individual');
    const [errors, setErrors] = useState(null);
 
@@ -77,22 +83,22 @@ const RegisterForm = () => {
         <img src={logo} alt="E-nsure Logo" className="h-10" />
         <button className="border px-4 py-1 rounded-md text-sm flex items-center gap-1">
           {/* ...icon... */}
-          Agent
+          {t('login.agent')}
         </button>
       </div>
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">Create your account</h2>
+      <h2 className="text-3xl font-bold text-gray-800 mb-6">{t('register.createTitle')}</h2>
       <div className="flex mb-6 space-x-4">
         <button
           onClick={() => setTab('individual')}
           className={`py-2 px-4 rounded-md ${tab === 'individual' ? 'bg-blue-900 text-white' : 'text-gray-600 border'}`}
         >
-          Individual
+          {t('register.individual')}
         </button>
         <button
           onClick={() => setTab('company')}
           className={`py-2 px-4 rounded-md ${tab === 'company' ? 'bg-blue-900 text-white' : 'text-gray-600 border'}`}
         >
-          Company
+          {t('register.company')}
         </button>
       </div>
       
@@ -107,56 +113,56 @@ const RegisterForm = () => {
      {tab === 'individual' ? (
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm mb-1">Full Name</label>
+            <label className="block text-sm mb-1">{t('register.fullName')}</label>
             <input
               ref={nameRef}
               type="text"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Full Name"
+              placeholder={t('register.fullName')}
               required
             />
             {errors?.name && <p className="text-red-500 text-sm">{errors.name[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">ID Number (NIDA)</label>
+            <label className="block text-sm mb-1">{t('register.nida')}</label>
             <input
               ref={nidaRef}
               type="text"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="NIDA Number"
+              placeholder={t('register.nida')}
               required
             />
             {errors?.nida && <p className="text-red-500 text-sm">{errors.nida[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label className="block text-sm mb-1">{t('register.email')}</label>
             <input
               ref={emailRef}
               type="email"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Email address"
+              placeholder={t('register.email')}
               required
             />
             {errors?.email && <p className="text-red-500 text-sm">{errors.email[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">Password</label>
+            <label className="block text-sm mb-1">{t('register.password')}</label>
             <input
               ref={passwordRef}
               type="password"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Password"
+              placeholder={t('register.password')}
               required
             />
             {errors?.password && <p className="text-red-500 text-sm">{errors.password[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">Confirm Password</label>
+            <label className="block text-sm mb-1">{t('register.confirmPassword')}</label>
             <input
               ref={passwordConfirmationRef}
               type="password"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Confirm Password"
+              placeholder={t('register.confirmPassword')}
               required
             />
           </div>
@@ -166,77 +172,77 @@ const RegisterForm = () => {
               type="checkbox"
               required
             />
-            I agree to the <Link to="#" className="text-blue-600 underline">Privacy Policy</Link> and <Link to="#" className="text-blue-600 underline">Terms of Use</Link>
+            {t('register.agree')} <Link to="#" className="text-blue-600 underline">{t('register.privacy')}</Link> and <Link to="#" className="text-blue-600 underline">{t('register.terms')}</Link>
             {errors?.terms && <p className="text-red-500 text-sm">{errors.terms[0]}</p>}
           </label>
           <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800">
-            Create Account
+            {t('register.createAccount')}
           </button>
         </form>
       ) : (
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm mb-1">Company Name</label>
+            <label className="block text-sm mb-1">{t('register.companyName')}</label>
             <input
               ref={companyNameRef}
               type="text"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Company Name"
+              placeholder={t('register.companyName')}
               required
             />
             {errors?.company_name && <p className="text-red-500 text-sm">{errors.company_name[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">TIN Number</label>
+            <label className="block text-sm mb-1">{t('register.tin')}</label>
             <input
               ref={tinRef}
               type="text"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="TIN Number"
+              placeholder={t('register.tin')}
               required
             />
             {errors?.tin && <p className="text-red-500 text-sm">{errors.tin[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">Phone Number</label>
+            <label className="block text-sm mb-1">{t('register.phone')}</label>
             <input
               ref={phoneRef}
               type="text"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Phone Number"
+              placeholder={t('register.phone')}
               required
             />
             {errors?.phone && <p className="text-red-500 text-sm">{errors.phone[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label className="block text-sm mb-1">{t('register.email')}</label>
             <input
               ref={companyEmailRef}
               type="email"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Email address"
+              placeholder={t('register.email')}
               required
             />
             {errors?.email && <p className="text-red-500 text-sm">{errors.email[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">Password</label>
+            <label className="block text-sm mb-1">{t('register.password')}</label>
             <input
               ref={companyPasswordRef}
               type="password"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Password"
+              placeholder={t('register.password')}
               required
             />
             {errors?.password && <p className="text-red-500 text-sm">{errors.password[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">Confirm Password</label>
+            <label className="block text-sm mb-1">{t('register.confirmPassword')}</label>
             <input
               ref={companyPasswordConfirmationRef}
               type="password"
               className="w-full border rounded-md px-4 py-2"
-              placeholder="Confirm Password"
+              placeholder={t('register.confirmPassword')}
               required
             />
           </div>
@@ -246,19 +252,36 @@ const RegisterForm = () => {
               type="checkbox"
               required
             />
-            I agree to the <Link to="#" className="text-blue-600 underline">Privacy Policy</Link> and <Link to="#" className="text-blue-600 underline">Terms of Use</Link>
+            {t('register.agree')} <Link to="#" className="text-blue-600 underline">{t('register.privacy')}</Link> and <Link to="#" className="text-blue-600 underline">{t('register.terms')}</Link>
             {errors?.terms && <p className="text-red-500 text-sm">{errors.terms[0]}</p>}
           </label>
           <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800">
-            Create Account
+            {t('register.createAccount')}
           </button>
         </form>
       )}
 
       <p className="text-sm mt-4">
-        Already have an account?{' '}
-        <Link to="/login" className="text-blue-600 hover:underline">Log in</Link>
+        {t('register.alreadyHaveAccount')}{' '}
+        <Link to="/login" className="text-blue-600 hover:underline">{t('register.loginHere')}</Link>
       </p>
+      <div className="w-full flex justify-end mt-4 md:mt-0">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => i18n.changeLanguage('en')}
+            className="flex items-center gap-1 text-sm px-2 py-1 border rounded hover:bg-gray-100"
+          >
+            <img src={usflag} alt="English" className="w-4 h-4" />
+            English
+          </button>
+          <button
+            onClick={() => i18n.changeLanguage('rw')}
+            className="flex items-center gap-1 text-sm px-2 py-1 border rounded hover:bg-gray-100"
+          >
+            🇷🇼 Kinyarwanda
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
