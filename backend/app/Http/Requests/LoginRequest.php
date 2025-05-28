@@ -26,8 +26,7 @@ class LoginRequest extends FormRequest
         return [
             //requirements for login
             'email' => 'required|email|exists:users,email',
-            'password' => 'required',           
-            'terms' => 'accepted'
+            'password' => 'required'
         ];
     }
 }

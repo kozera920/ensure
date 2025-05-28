@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet, Navigate, Link } from 'react-router-dom';
 import { useStateContext } from '../../contexts/ContextProvider.jsx';
 import logo from '../../assets/images/logo.png';
 import usflag from '../../assets/images/usflag.png';
+import axios from 'axios';
+import axiosClient from '../../axios-client.js'
 
 const DefaultLayout = () => {
-  const { user, token } = useStateContext();
+  const { user, token, setUser,setToken } = useStateContext();
 
   if (!token) {
     return <Navigate to='/login' />
@@ -13,7 +15,32 @@ const DefaultLayout = () => {
 
   const onLogout = (event) =>{
     event.preventDefault();
+    axiosClient.post('/logout')
+      .then(() => {
+        setUser({});
+        setToken(null);
+        localStorage.removeItem('ACCESS_TOKEN');
+      })
+      .catch(err => {
+        console.error("Logout failed:", err);
+      });
   }
+
+  useEffect(() => {
+    axiosClient.get('/user')
+      .then(({ data }) => {
+        setUser(data);
+        //setToken(data.token);
+      })
+      .catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          setErrors(response.data.errors);
+        } else if (response && response.data && response.data.message) {
+          setErrorMessage(response.data.message);
+        }
+      });
+  }, []);
 
   return (
     <div id="defaultLayout" className="flex min-h-screen">
@@ -55,7 +82,7 @@ const DefaultLayout = () => {
           <div className="flex items-center space-x-4">
             <div className="text-sm text-gray-600"><img src={usflag} alt="English" className="w-5 h-5" />English</div>
             <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-semibold">MD</div>
-            <span className="text-sm">{user.name}</span>
+            <span className="text-sm">{user?.name || ''}</span>
             <Link to ="#" className="text-sm" onClick={onLogout}>Logout</Link>
           </div>
         </header>
