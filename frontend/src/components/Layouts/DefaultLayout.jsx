@@ -81,8 +81,14 @@ const DefaultLayout = () => {
           <input type="text" placeholder="Type here to search..." className="border rounded px-4 py-2 w-1/3" />
           <div className="flex items-center space-x-4">
             <div className="text-sm text-gray-600"><img src={usflag} alt="English" className="w-5 h-5" />English</div>
-            <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-semibold">MD</div>
-            <span className="text-sm">{user?.name || ''}</span>
+            
+            <Link to="/user_profile" className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-semibold">
+                MD
+              </div>
+              <span className="text-sm">{user?.name || ''}</span>
+            </Link>
+            
             <Link to ="#" className="text-sm" onClick={onLogout}>Logout</Link>
           </div>
         </header>

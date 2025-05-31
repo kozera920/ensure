@@ -7,6 +7,7 @@ import DefaultLayout from './components/Layouts/DefaultLayout.jsx';
 import GuestLayout from './components/Layouts/GuestLayout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import { Navigate } from 'react-router-dom';
+import UserProfile from './pages/UserProfile.jsx';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path:'/users',
                 element:<Users/>
+            },
+            {
+                path:'/user_profile',
+                element:<UserProfile/>
             },
         ]
     },
