@@ -27,7 +27,7 @@ const LoginForm = () => {
     setErrorMessage('');
 
     const payload = {
-      email: emailRef.current.value,
+      login: emailRef.current.value,
       password: passwordRef.current.value
     };
 
@@ -71,10 +71,13 @@ const LoginForm = () => {
           </div>
         )}
         <form onSubmit={onSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm mb-1">{t('login.email')}</label>
-            <input ref={emailRef} type="text" className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder={t('login.email')} />
-          </div>
+          <label className="block text-sm mb-1">{t('Email or Phone') || 'Email or Phone'}</label>
+          <input
+            ref={emailRef}
+            type="text"
+            className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder={t('Email or Phone') || 'Email or Phone'}
+          />
           <div>
             <label className="block text-sm mb-1">{t('login.password')}</label>
             <div className="relative">

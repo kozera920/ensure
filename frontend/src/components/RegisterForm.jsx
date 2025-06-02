@@ -16,6 +16,7 @@ const RegisterForm = () => {
 
   // Refs for form inputs
   const nameRef = useRef();
+  const phoneNumberRef = useRef();
   const nidaRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -45,11 +46,16 @@ const RegisterForm = () => {
       payload = {
         ...payload,
         name: nameRef.current.value,
-        nida: nidaRef.current.value,
+        phone: phoneNumberRef.current.value,  
         email: emailRef.current.value,
         password: passwordRef.current.value,
         password_confirmation: passwordConfirmationRef.current.value,
       };
+      if (documentType === 'NIDA') {
+        payload.nida = nidaRef.current.value;
+      } else {
+        payload.passport = nidaRef.current.value;
+      }
     } else {
       payload = {
         ...payload,
@@ -76,6 +82,7 @@ const RegisterForm = () => {
       });
   };
 
+  const [documentType, setDocumentType] = useState('NIDA');
 
   return (
     <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-12">
@@ -113,6 +120,31 @@ const RegisterForm = () => {
      {tab === 'individual' ? (
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
+            <label className="block text-sm mb-1">Document Type</label>
+            <select
+              value={documentType}
+              onChange={e => setDocumentType(e.target.value)}
+              className="w-full border rounded-md px-4 py-2"
+            >
+              <option value="NIDA">NID Number</option>
+              <option value="Passport">Passport</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm mb-1">
+              {documentType === 'NIDA' ? t('register.nida') : 'Passport Number'}
+            </label>
+            <input
+              ref={nidaRef}
+              id={documentType === 'NIDA' ? 'nida' : 'passport'}
+              type="text"
+              className="w-full border rounded-md px-4 py-2"
+              placeholder={documentType === 'NIDA' ? t('register.nida') : 'Passport Number'}
+              required
+            />
+            {errors?.nida && <p className="text-red-500 text-sm">{errors.nida[0]}</p>}
+          </div>
+          <div>
             <label className="block text-sm mb-1">{t('register.fullName')}</label>
             <input
               ref={nameRef}
@@ -124,16 +156,16 @@ const RegisterForm = () => {
             {errors?.name && <p className="text-red-500 text-sm">{errors.name[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm mb-1">{t('register.nida')}</label>
+            <label className="block text-sm mb-1">{t('register.phone')}</label>
             <input
-              ref={nidaRef}
+              ref={phoneNumberRef}
               type="text"
               className="w-full border rounded-md px-4 py-2"
-              placeholder={t('register.nida')}
+              placeholder={t('register.phone')}
               required
             />
-            {errors?.nida && <p className="text-red-500 text-sm">{errors.nida[0]}</p>}
-          </div>
+            {errors?.phone && <p className="text-red-500 text-sm">{errors.phone[0]}</p>}
+          </div>         
           <div>
             <label className="block text-sm mb-1">{t('register.email')}</label>
             <input

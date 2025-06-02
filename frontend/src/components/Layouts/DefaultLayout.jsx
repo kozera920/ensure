@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { Outlet, Navigate, Link } from 'react-router-dom';
 import { useStateContext } from '../../contexts/ContextProvider.jsx';
 import logo from '../../assets/images/logo.png';
