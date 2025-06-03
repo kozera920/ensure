@@ -6,6 +6,7 @@ import axiosClient from '../axios-client.js'
 import { useStateContext } from '../contexts/ContextProvider'
 import i18n from '../i18n';
 import { useTranslation } from 'react-i18next';
+import LoginHeader from '../components/LoginHeader.jsx';
 
 const RegisterForm = () => {
 
@@ -86,24 +87,18 @@ const RegisterForm = () => {
 
   return (
     <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-12">
-      <div className="flex justify-between items-center mb-10">
-        <img src={logo} alt="E-nsure Logo" className="h-10" />
-        <button className="border px-4 py-1 rounded-md text-sm flex items-center gap-1">
-          {/* ...icon... */}
-          {t('login.agent')}
-        </button>
-      </div>
+      <LoginHeader/>
       <h2 className="text-3xl font-bold text-gray-800 mb-6">{t('register.createTitle')}</h2>
       <div className="flex mb-6 space-x-4">
         <button
           onClick={() => setTab('individual')}
-          className={`py-2 px-4 rounded-md ${tab === 'individual' ? 'bg-blue-900 text-white' : 'text-gray-600 border'}`}
+          className={`py-2 px-4 rounded-md ${tab === 'individual' ? 'bg-[#204C86] text-white' : 'text-gray-600 border'}`}
         >
           {t('register.individual')}
         </button>
         <button
           onClick={() => setTab('company')}
-          className={`py-2 px-4 rounded-md ${tab === 'company' ? 'bg-blue-900 text-white' : 'text-gray-600 border'}`}
+          className={`py-2 px-4 rounded-md ${tab === 'company' ? 'bg-[#204C86] text-white' : 'text-gray-600 border'}`}
         >
           {t('register.company')}
         </button>

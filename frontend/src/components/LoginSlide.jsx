@@ -28,11 +28,21 @@ const LoginSlide = () => {
 
   return (
     <div className="hidden md:flex w-1/2 bg-[#204C86] text-white flex-col justify-center items-center p-10">
-      <img src={images[index].src} alt="Slide" className="max-w-xs mb-8" />
-      <h3 className="text-xl font-semibold mb-2">{images[index].title}</h3>
-      <p className="text-center text-sm max-w-md leading-relaxed">
+      <img src={images[index].src} alt="Slide" className="max-w-xs mb-8" />      
+      <h3
+        className="font-opensans font-semibold text-[20px] leading-[1.5] text-center tracking-normal"
+        style={{
+          fontVariantNumeric: 'lining-nums tabular-nums'
+        }}
+      >
+        {images[index].title}
+      </h3>
+      <p
+        className="font-opensans font-normal text-[15px] text-center"
+      >
         {images[index].desc}
       </p>
+
       <div className="flex justify-center mt-6 space-x-2">
         {images.map((_, i) => (
           <span

@@ -1,14 +1,13 @@
 import React, { useState, useRef } from 'react'
 import { data, Link } from 'react-router-dom'
-import logo from '../assets/images/logo.png';
 import usflag from '../assets/images/usflag.png';
 import rwflag1 from '../assets/images/rwflag1.png';
-import iconAgent from '../assets/images/iconAgent.png';
 import axiosClient from '../axios-client.js'
 import { useStateContext } from '../contexts/ContextProvider'
 import { useNavigate } from 'react-router-dom';
 import i18n from '../i18n';
 import { useTranslation } from 'react-i18next';
+import LoginHeader from '../components/LoginHeader.jsx';
 
 
 const LoginForm = () => {
@@ -52,17 +51,7 @@ const LoginForm = () => {
 
   return (
     <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-12">      
-        <div className="flex justify-end mb-10">
-          <button className="border px-4 py-1 rounded-lg text-sm flex items-center gap-1 text-[#204C86]">
-            <span className="inline-flex items-center p-2 rounded">
-              <img src={iconAgent} alt="icon agent" className="w-4 h-4" />
-            </span>
-            {t('login.agent')}
-          </button>
-        </div>
-        <div className="flex justify-center mb-10">
-          <img src={logo} alt="E-nsure Logo" className="h-15 w-auto" />
-        </div>
+        <LoginHeader/>        
         <h2 className="text-center text-4xl font-bold text-gray-800 mb-6 font-opensans">
           {t('login.login')}
         </h2>
@@ -97,31 +86,31 @@ const LoginForm = () => {
               type="checkbox"
             />{t('login.remember')}
             </label>
-            <Link to="#" className="text-[#204C86]">{t('login.forgotpassword')}</Link>
+            <Link to="#" className="text-[#204C86] cursor-pointer">{t('login.forgotpassword')}</Link>
           </div>
           <hr className='border-gray-300'/>
-          <button type="submit" className="w-full bg-[#204C86] text-white py-2 rounded-md hover:bg-[#54a3da]">{t('login.loginB')}</button>
+          <button type="submit" className="w-full bg-[#204C86] text-white py-2 rounded-lg hover:bg-[#54a3da] cursor-pointer">{t('login.loginB')}</button>
         </form>
         <p className="text-sm mt-4 text-gray-600">
           {t('login.account')}
-          <Link to="/register" className="text-[#204C86]"> &nbsp;{t('login.createAccount')}</Link>
+          <Link to="/register" className="text-[#204C86] cursor-pointer"> &nbsp;{t('login.createAccount')}</Link>
         </p>
         <div className="mt-auto pt-10 text-sm text-gray-600 flex flex-col md:flex-row justify-between items-center">
           <p>
             {t('login.difficulties')}&nbsp;&nbsp;
-            <Link to="#" className="text-[#204C86]">{t('login.contactEnsure')}</Link>
+            <Link to="#" className="text-[#204C86] cursor-pointer">{t('login.contactEnsure')}</Link>
           </p>
           <div className="mt-4 md:mt-0 flex items-center gap-4">
             <button
               onClick={() => i18n.changeLanguage('en')}
-              className="flex items-center gap-1 text-sm px-2 py-1 border rounded hover:bg-gray-100"
+              className="flex items-center gap-1 text-sm px-2 py-1 border rounded hover:bg-gray-100 cursor-pointer"
             >
               <img src={usflag} alt="English" className="w-4 h-4" />
               English
             </button>
             <button
               onClick={() => i18n.changeLanguage('rw')}
-              className="flex items-center gap-1 text-sm px-2 py-1 border rounded hover:bg-gray-100"
+              className="flex items-center gap-1 text-sm px-2 py-1 border rounded hover:bg-gray-100 cursor-pointer"
             >
               <img src={rwflag1} alt="English" className="w-4 h-4" /> 
               Kinyarwanda
