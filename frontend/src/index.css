@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.font-opensans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.placeholder-14px::placeholder {
+  font-size: 14px;
+}

@@ -2,11 +2,14 @@ import React, { useState, useRef } from 'react'
 import { data, Link } from 'react-router-dom'
 import logo from '../assets/images/logo.png';
 import usflag from '../assets/images/usflag.png';
+import rwflag1 from '../assets/images/rwflag1.png';
+import iconAgent from '../assets/images/iconAgent.png';
 import axiosClient from '../axios-client.js'
 import { useStateContext } from '../contexts/ContextProvider'
 import { useNavigate } from 'react-router-dom';
 import i18n from '../i18n';
 import { useTranslation } from 'react-i18next';
+
 
 const LoginForm = () => {
 
@@ -48,17 +51,21 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-12">
-        <div className="flex justify-between items-center mb-10">
-          <img src={logo} alt="E-nsure Logo" className="h-10" />
-          <button className="border px-4 py-1 rounded-md text-sm flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-            </svg>
+    <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-12">      
+        <div className="flex justify-end mb-10">
+          <button className="border px-4 py-1 rounded-lg text-sm flex items-center gap-1 text-[#204C86]">
+            <span className="inline-flex items-center p-2 rounded">
+              <img src={iconAgent} alt="icon agent" className="w-4 h-4" />
+            </span>
             {t('login.agent')}
           </button>
         </div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">{t('login.login')}</h2>
+        <div className="flex justify-center mb-10">
+          <img src={logo} alt="E-nsure Logo" className="h-15 w-auto" />
+        </div>
+        <h2 className="text-center text-4xl font-bold text-gray-800 mb-6 font-opensans">
+          {t('login.login')}
+        </h2>
         {errors && Object.keys(errors).map(key => (
           <p key={key}>{errors[key][0]}</p>
         ))}
@@ -75,34 +82,34 @@ const LoginForm = () => {
           <input
             ref={emailRef}
             type="text"
-            className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={t('Email or Phone') || 'Email or Phone'}
+            className="w-full border border-gray-300 rounded-md px-4 py-2 placeholder-14px" placeholder={t('Email or Phone') || 'Email or Phone'}
           />
           <div>
             <label className="block text-sm mb-1">{t('login.password')}</label>
             <div className="relative">
-              <input ref={passwordRef} type="password" className="w-full border rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder={t('login.password')} />
+              <input ref={passwordRef} type="password" className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-14px" placeholder={t('login.password')} />
               <button type="button" className="absolute right-3 top-2 text-gray-400"></button>
             </div>
           </div>
           <div className="flex justify-between items-center text-sm">
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-2 text-gray-500">
               <input              
               type="checkbox"
             />{t('login.remember')}
             </label>
-            <Link to="#" className="text-blue-600 hover:underline">{t('login.forgotpassword')}</Link>
+            <Link to="#" className="text-[#204C86]">{t('login.forgotpassword')}</Link>
           </div>
-          <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800">{t('login.loginB')}</button>
+          <hr className='border-gray-300'/>
+          <button type="submit" className="w-full bg-[#204C86] text-white py-2 rounded-md hover:bg-[#54a3da]">{t('login.loginB')}</button>
         </form>
-        <p className="text-sm mt-4">
+        <p className="text-sm mt-4 text-gray-600">
           {t('login.account')}
-          <Link to="/register" className="text-blue-600 hover:underline">{t('login.createAccount')}</Link>
+          <Link to="/register" className="text-[#204C86]"> &nbsp;{t('login.createAccount')}</Link>
         </p>
         <div className="mt-auto pt-10 text-sm text-gray-600 flex flex-col md:flex-row justify-between items-center">
           <p>
-            {t('login.difficulties')}
-            <Link to="#" className="text-blue-600 hover:underline">{t('login.contactEnsure')}</Link>
+            {t('login.difficulties')}&nbsp;&nbsp;
+            <Link to="#" className="text-[#204C86]">{t('login.contactEnsure')}</Link>
           </p>
           <div className="mt-4 md:mt-0 flex items-center gap-4">
             <button
@@ -116,7 +123,8 @@ const LoginForm = () => {
               onClick={() => i18n.changeLanguage('rw')}
               className="flex items-center gap-1 text-sm px-2 py-1 border rounded hover:bg-gray-100"
             >
-              🇷🇼 Kinyarwanda
+              <img src={rwflag1} alt="English" className="w-4 h-4" /> 
+              Kinyarwanda
             </button>
           </div>
         </div>

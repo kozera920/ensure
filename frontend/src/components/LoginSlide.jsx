@@ -1,19 +1,49 @@
-import React from 'react'
-import crash from '../assets/images/crash.png'
+import React, { useState,useEffect } from 'react';
+import crash from '../assets/images/crash.png';
+import second from '../assets/images/second.png';
 
-const LoginSlide = () => (
-  <div className="hidden md:flex w-1/2 bg-blue-900 text-white flex-col justify-center items-center p-10">
-    <img src={crash} alt="Crash Illustration" className="max-w-xs mb-8" />
-    <h3 className="text-xl font-semibold mb-2">File & Track Your Claims</h3>
-    <p className="text-center text-sm max-w-md leading-relaxed">
-      Submit claims and monitor status in real-time.<br />
-      Say goodbye to paperwork!
-    </p>
-    <div className="flex justify-center mt-6 space-x-2">
-      <span className="w-3 h-3 bg-white rounded-full block"></span>
-      <span className="w-3 h-3 bg-white/50 rounded-full block"></span>
+const images = [
+  {
+    src: crash,
+    title: "File & Track Your Claims",
+    desc: "Submit claims and monitor status in real-time. Say goodbye to paperwork!"
+  },
+  {
+    src: second,
+    title: "Buy & Access Your New Policies",
+    desc: "Get insurance policies for your clients directly through  E-nsure with your provider"
+  }
+];
+
+const LoginSlide = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex(prev => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="hidden md:flex w-1/2 bg-[#204C86] text-white flex-col justify-center items-center p-10">
+      <img src={images[index].src} alt="Slide" className="max-w-xs mb-8" />
+      <h3 className="text-xl font-semibold mb-2">{images[index].title}</h3>
+      <p className="text-center text-sm max-w-md leading-relaxed">
+        {images[index].desc}
+      </p>
+      <div className="flex justify-center mt-6 space-x-2">
+        {images.map((_, i) => (
+          <span
+            key={i}
+            className={`w-3 h-3 rounded-full block cursor-pointer ${i === index ? 'bg-white' : 'bg-white/50'}`}
+            onClick={() => setIndex(i)}
+          ></span>
+        ))}
+      </div>
     </div>
-  </div>
-)
+  );
+};
 
-export default LoginSlide
+export default LoginSlide;
