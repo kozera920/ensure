@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "insuranceCompanyName": "Radiant Insurance Company",
+    "carBrand": "Toyota Land Cruiser",
+    "plateNumber": "RAD 123 A",
+    "policyNumber": "123456",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "insuranceCompanyName": "Prime Insurance",
+    "carBrand": "Suzuki Swift",
+    "plateNumber": "RAB 456 B",
+    "policyNumber": "654321",
+    "status": "not active"
+  },
+  {
+    "id": 3,
+    "insuranceCompanyName": "Sonarwa Insurance",
+    "carBrand": "Hyundai Tucson",
+    "plateNumber": "RAC 789 C",
+    "policyNumber": "789123",
+    "status": "active"
+  },
+  {
+    "id": 4,
+    "insuranceCompanyName": "Soras Insurance",
+    "carBrand": "Kia Sportage",
+    "plateNumber": "RAD 234 D",
+    "policyNumber": "321987",
+    "status": "not active"
+  },
+  {
+    "id": 5,
+    "insuranceCompanyName": "Radiant Insurance Company",
+    "carBrand": "Mitsubishi Pajero",
+    "plateNumber": "RAB 567 E",
+    "policyNumber": "456789",
+    "status": "active"
+  }
+]

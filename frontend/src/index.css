@@ -11,3 +11,35 @@ body {
 .placeholder-14px::placeholder {
   font-size: 14px;
 }
+
+.bg-diagonal {
+  background: linear-gradient(90deg, #204C86 0%, #204C86 8%, #ffffff 0%, #ffffff 100%);
+}
+
+.select-14px {
+  font-size: 14px;
+}
+
+.mrleft-27px {
+  margin-left: 27px;
+}
+
+.text-custom-gray {
+  color: #888888;
+}
+
+.text-custom-black{
+  color: #1E1E1E;
+}
+
+.text-custom-blue{
+  color:#064E89;
+}
+
+.bg-custom-blue{
+  background:#064E89;
+}
+
+.bg-custom-dashboard{
+  background: linear-gradient(0deg, #F8F7FD 0%, #F8F7FD 100%), #FFF;
+}
