@@ -74,6 +74,7 @@ const RegisterForm = () => {
       .then(({ data }) => {
         setUser(data.user);
         setToken(data.token);
+        localStorage.setItem('isNewUser', 'true');
       })
       .catch(err => {
         const response = err.response;
