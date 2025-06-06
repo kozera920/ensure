@@ -18,7 +18,7 @@
     "individual": "Individual",
     "company": "Organization",
     "fullName": "Full Name",
-    "nida": "ID Number (NIDA)",
+    "nida": "ID Number",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",

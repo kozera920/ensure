@@ -2,21 +2,24 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaFileAlt, FaMoneyCheckAlt, FaFileSignature } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
+import Shield from '../../assets/images/Navbar/Shield.png'
+import article from '../../assets/images/Navbar/article.png'
+import wallet from '../../assets/images/Navbar/wallet.png'
 
 const menus = [
   {
     key: 'policies',
-    icon: <FaFileAlt className="inline mr-2" />,
+    img: <img src={Shield} className="inline mr-2" />,
     label: 'Policies',
     items: [
-      { to: '/users', label: 'Active' },
-      { to: '/dashboard', label: 'Inactive' },
+      { to: '/policies', label: 'Active' },
+      { to: '/inactive_policies', label: 'Inactive' },
       { to: '#', label: 'InProgress' },
     ],
   },
   {
     key: 'claims',
-    icon: <FaFileSignature className="inline mr-2" />,
+    img: <img src={article} className="inline mr-2" />,
     label: 'Claims',
     items: [
       { to: '#', label: 'Policy Claims' },
@@ -25,7 +28,7 @@ const menus = [
   },
   {
     key: 'billing',
-    icon: <FaMoneyCheckAlt className="inline mr-2" />,
+    img: <img src={wallet} className="inline mr-2" />,
     label: 'Billing',
     items: [
       { to: '#', label: 'Payment Method' },
@@ -53,7 +56,7 @@ const NavBar = () => {
             className="flex items-center w-full text-base font-semibold text-black focus:outline-none font-opensans text-custom-black"
             onClick={() => handleToggle(menu.key)}
           >
-            {menu.icon}
+            {menu.img}
             {menu.label}
             <IoIosArrowDown className="ml-2" />
           </button>

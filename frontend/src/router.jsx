@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import { Navigate } from 'react-router-dom';
 import UserProfile from './pages/UserProfile.jsx';
 import PolicyDetails from './pages/policies/PolicyDetails';
+import InactivePolicies from './pages/InactivePolicies.jsx';
 
 const router = createBrowserRouter([
     {
@@ -24,15 +25,19 @@ const router = createBrowserRouter([
                 element:<Dashboard/>
             },
             {
-                path:'/users',
-                element:<Users/>
+                path:'/policies',
+                element:<Dashboard/>
+            },
+            {
+                path:'/inactive_policies',
+                element:<InactivePolicies/>
             },
             {
                 path:'/user_profile',
                 element:<UserProfile/>
             },
             {
-                path:'/policies/:id',
+                path:'/policy/:id',
                 element: <PolicyDetails />
             }
         ]

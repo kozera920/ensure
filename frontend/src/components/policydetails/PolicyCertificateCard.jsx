@@ -1,4 +1,8 @@
 import React from 'react'
+import download1 from '../../assets/images/policydetails/download1.png';
+import share from '../../assets/images/policydetails/share.png';
+import Certificate from '../../assets/images/policydetails/Certificate.png';
+
 
 const PolicyCertificateCard = () => (
     
@@ -7,14 +11,14 @@ const PolicyCertificateCard = () => (
       <div className="text-black text-base font-semibold font-['Open_Sans']">Insurance Certificate</div>
       <div className="flex items-center gap-2">
         <div className="w-6 h-6 relative overflow-hidden">
-          <div className="w-3.5 h-4 absolute left-[5.14px] top-[4px] outline outline-1 outline-offset-[-0.57px] outline-black" />
+          <img src={download1}/>
         </div>
         <div className="w-6 h-6 relative overflow-hidden">
-          <div className="w-4 h-3.5 absolute left-[3px] top-[5px] bg-black" />
+          <img src={share}/>
         </div>
       </div>
-    </div>
-    <img className="w-full h-56 rounded-lg shadow outline outline-1 outline-offset-[-1px]" src="https://placehold.co/341x228" alt="Certificate" />
+    </div>   
+    <img className="w-full h-56 shadow outline outline-1 outline-offset-[-1px] outline-blue-700" src={Certificate} alt="Certificate" />
   </div>
 )
 

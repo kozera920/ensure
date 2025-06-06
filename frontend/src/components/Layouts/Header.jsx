@@ -30,6 +30,7 @@ const Header = () => {
       })
       .catch(err => {
         // handle error
+        console.error(":", err)
       })
   }, [])
 

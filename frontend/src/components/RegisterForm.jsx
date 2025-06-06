@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react'
-import { data, Link } from 'react-router-dom'
-import usflag from '../assets/images/usflag.png';
+import { Link } from 'react-router-dom'
+
 import axiosClient from '../axios-client.js'
 import { useStateContext } from '../contexts/ContextProvider'
-import i18n from '../i18n';
+
 import { useTranslation } from 'react-i18next';
 import LoginHeader from '../components/LoginHeader.jsx';
 import LoginFooter from '../components/LoginFooter.jsx';
