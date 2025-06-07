@@ -1,23 +1,20 @@
 import React from 'react'
-
-import InactivePolicyListings from '../components/Policies/InactivePolicyListing.jsx';
+import InprogressPolicyListings from '../components/Policies/InprogressPolicyListings.jsx'
 import ButtonBuyNewPolicy from '../components/Policies/ButtonBuyNewPolicy.jsx'
 
-
-const InactivePolicies = () => {
-  
+const InprogressPolicies = () => {
   return (
-    <>
+     <>
         <div>          
           
           <ButtonBuyNewPolicy/>
           
           <div className='bg-white p-5'>
-            <h3 className="text-xl font-semibold mb-4">Inactive</h3>
+            <h3 className="text-xl font-semibold mb-4">InProgress</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* ...policy card... */}
               
-              <InactivePolicyListings/>            
+              <InprogressPolicyListings/>            
               
             </div>
           </div>
@@ -26,4 +23,4 @@ const InactivePolicies = () => {
   )
 }
 
-export default InactivePolicies
+export default InprogressPolicies

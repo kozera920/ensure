@@ -1,18 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { BuildingOffice2Icon, HashtagIcon } from '@heroicons/react/24/outline'
-import { FaCar } from 'react-icons/fa'
 import policies from '../../policies.json'
 import visibility from '../../assets/images/policydetails/visibility.png'
-import renew from '../../assets/images/policydetails/renew.png'
 import radiant_elipse from '../../assets/images/policydetails/radiant_elipse.png'
 import car_icon from '../../assets/images/policydetails/car_icon.png'
-import hashtag from '../../assets/images/policydetails/hashtag.png'
+import calendar from '../../assets/images/policydetails/calendar.png'
 
-const InactivePolicyListings = () => {
-    
+const InprogressPolicyListings = () => {
   return (
-    <>
+     <>
         {policies.slice(0, 3).map((policy)=>{
             return(
                 <div key={policy.id} className="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col gap-2" >
@@ -25,8 +21,8 @@ const InactivePolicyListings = () => {
                         <span>{policy.carBrand} - {policy.plateNumber}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <img src={hashtag} className="h-8 w-8 text-gray-500 bg-indigo-100 rounded-full" />
-                        <span>Policy #: {policy.policyNumber}</span>
+                        <img src={calendar} className="h-8 w-8 text-gray-500 bg-indigo-100 rounded-full" />
+                        <span>Purchased on: March 20,2025</span>
                     </div>
                     
                    <div className="flex items-center gap-13 mt-2">
@@ -35,19 +31,15 @@ const InactivePolicyListings = () => {
                             className="px-3.5 py-[5px] rounded-[50px] outline outline-2 text-custom-blue inline-flex justify-center items-center gap-2"
                         >
                             <img src={visibility} alt="View" />
-                            <div className="justify-start text-custom-blue text-sm font-normal font-['Open_Sans']">View Policy</div>
+                            <div className="justify-start text-custom-blue text-sm font-normal font-['Open_Sans']">Track Purchase</div>
                         </Link>
-                        <Link to={`/policy/${policy.id}`} className="px-3.5 py-[5px] rounded-[50px] outline outline-2 outline-red-600 inline-flex justify-center items-center gap-2">
-                            <img src={renew}/>
-                            <div className="justify-start text-red-600 text-sm font-normal font-['Open_Sans']">Renew</div>
-                        </Link>
+                        
                     </div>
                 </div>
             )
         })}
     </>
-    
   )
 }
 
-export default InactivePolicyListings
+export default InprogressPolicyListings

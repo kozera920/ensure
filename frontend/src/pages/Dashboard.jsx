@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ActivePolicyListings from '../components/Policies/ActivePolicyListings.jsx';
-import BuyNewPolicy from '../components/Policies/BuyNewPolicy.jsx';
+import ButtonBuyNewPolicy from '../components/Policies/ButtonBuyNewPolicy.jsx';
 
 
 
@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <>
         <div>          
-          <BuyNewPolicy/>
+          <ButtonBuyNewPolicy/>
           
           <div className='bg-white p-5'>
             <h3 className="text-xl font-semibold mb-4">Active</h3>

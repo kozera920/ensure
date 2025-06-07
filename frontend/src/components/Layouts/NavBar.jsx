@@ -12,9 +12,9 @@ const menus = [
     img: <img src={Shield} className="inline mr-2" />,
     label: 'Policies',
     items: [
-      { to: '/policies', label: 'Active' },
+      { to: '/active_policies', label: 'Active' },
       { to: '/inactive_policies', label: 'Inactive' },
-      { to: '#', label: 'InProgress' },
+      { to: '/inprogress_policies', label: 'InProgress' },
     ],
   },
   {
