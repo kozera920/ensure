@@ -63,7 +63,7 @@ const UserDropdown = ({ user, onLogout }) => {
           <DropdownItem 
             image={<img src={importIcon} className="text-blue-900" size={20} />}
             text="Import my Insurance"
-            to="/user"
+            to="#"
             onClick={() => setIsOpen(false)}
           />
 

@@ -2,7 +2,7 @@ import {createBrowserRouter} from 'react-router-dom';
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx';
 import Users from './pages/Users.jsx';
-import NotFound from './pages/NotFound.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 import DefaultLayout from './components/Layouts/DefaultLayout.jsx';
 import GuestLayout from './components/Layouts/GuestLayout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
     },      
     {
         path:'*',
-        element:<NotFound/>
+        element:<NotFoundPage/>
     }
 ])
 
