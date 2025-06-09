@@ -4,54 +4,69 @@ import UserProfileContact from '../components/UserProfile/UserProfileContact.jsx
 import UserProfileResidence from '../components/UserProfile/UserProfileResidence.jsx';
 import UserProfileCompany from '../components/UserProfile/UserProfileCompany.jsx';
 
-const tabTitles = {
-  personal: 'Personal Information',
-  contact: 'Contact Information',
-  residence: 'Residence Information',
-  company: 'Company Information',
-};
+
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('personal');
 
   return (
-    <>
-      <div className="border-b border-gray-200 px-8 pt-6">
-        <h2 className="text-lg font-semibold mb-4">{tabTitles[activeTab]}</h2>
-      </div>
-
+    <>  
       <div className="flex-1 overflow-auto px-8 pb-8">
         <div className="max-w-4xl mx-auto">
-          <nav className="-mb-px flex space-x-8">
+          <nav className="-mb-px flex space-x-8 bg-white">
             <button
               type="button"
               onClick={() => setActiveTab('personal')}
-              className={`py-2 px-4 border-b-2 ${activeTab === 'personal' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500'} font-medium`}
+              className={`
+                ${activeTab === 'personal' 
+                  ? 'self-stretch px-3.5 py-5 bg-custom-blue rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center' 
+                  : 'self-stretch px-3.5 py-5 bg-white rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center'}`}
             >
-              Personal Information
+               <div className={`
+                ${activeTab==='personal' 
+                  ? "self-stretch text-center justify-center text-white text-base font-normal font-['Open_Sans']"
+                 :"self-stretch text-center justify-center text-zinc-500 text-base font-normal font-['Open_Sans']" }`}>Personal Information</div>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('contact')}
-              className={`py-2 px-4 border-b-2 ${activeTab === 'contact' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500'} font-medium`}
+              className={`
+                ${activeTab === 'contact' 
+                  ? 'self-stretch px-3.5 py-5 bg-custom-blue rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center' 
+                  : 'self-stretch px-3.5 py-5 bg-white rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center'}`}
             >
-              Contact Information
+               <div className={`
+                ${activeTab==='contact' 
+                  ? "self-stretch text-center justify-center text-white text-base font-normal font-['Open_Sans']"
+                 :"self-stretch text-center justify-center text-zinc-500 text-base font-normal font-['Open_Sans']" }`}>Contact Information</div>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('residence')}
-              className={`py-2 px-4 border-b-2 ${activeTab === 'residence' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500'} font-medium`}
+              className={`
+                ${activeTab === 'residence' 
+                  ? 'self-stretch px-3.5 py-5 bg-custom-blue rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center' 
+                  : 'self-stretch px-3.5 py-5 bg-white rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center'}`}
             >
-              Residence Information
+               <div className={`
+                ${activeTab==='residence' 
+                  ? "self-stretch text-center justify-center text-white text-base font-normal font-['Open_Sans']"
+                 :"self-stretch text-center justify-center text-zinc-500 text-base font-normal font-['Open_Sans']" }`}>Residence Information</div>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('company')}
-              className={`py-2 px-4 border-b-2 ${activeTab === 'company' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500'} font-medium`}
+              className={`
+                ${activeTab === 'company' 
+                  ? 'self-stretch px-3.5 py-5 bg-custom-blue rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center' 
+                  : 'self-stretch px-3.5 py-5 bg-white rounded-tl-lg rounded-bl-2xl inline-flex flex-col justify-start items-center'}`}
             >
-              Company Information
+               <div className={`
+                ${activeTab==='company' 
+                  ? "self-stretch text-center justify-center text-white text-base font-normal font-['Open_Sans']"
+                 :"self-stretch text-center justify-center text-zinc-500 text-base font-normal font-['Open_Sans']" }`}>Company Information</div>
             </button>
-          </nav>
+          </nav>  
 
           <div className="tab-content mt-6">
             {activeTab === 'personal' && <UserProfilePersonal />}

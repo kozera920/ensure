@@ -27,7 +27,10 @@ const UserProfileResidence = () => {
     <div className="tab-content mt-6">
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="space-y-6">
-        
+           <div className="justify-center text-zinc-800 text-4xl font-bold font-['Open_Sans']">Residence Information</div>
+          <div className="w-24 h-24 max-w-[658.60px] relative bg-zinc-500 rounded-[44.50px] overflow-hidden">
+            <div className="left-[20.77px] top-[27.41px] absolute justify-center text-white text-3xl font-bold font-['Open_Sans'] leading-9">MD</div>
+          </div>
           <div className="grid grid-cols-3 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-500 mb-1">City</label>

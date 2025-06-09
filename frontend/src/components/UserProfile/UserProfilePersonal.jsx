@@ -40,22 +40,74 @@ const UserProfilePersonal = () => {
   return (
     <div className="tab-content mt-6">
       <div className="bg-white rounded-lg shadow-sm p-6">
-        <div className="space-y-6">          
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-500 mb-1">First Name</label>
-              <div className="text-sm p-2 bg-gray-50 rounded">{firstName} {middleName}</div>
+        <div className="space-y-6">
+          <div className="justify-center text-zinc-800 text-4xl font-bold font-['Open_Sans']">Personal Information</div>
+          <div className="w-24 h-24 max-w-[658.60px] relative bg-zinc-500 rounded-[44.50px] overflow-hidden">
+            <div className="left-[20.77px] top-[27.41px] absolute justify-center text-white text-3xl font-bold font-['Open_Sans'] leading-9">MD</div>
+          </div>          
+          <div className="grid grid-cols-2 gap-6">            
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">First Name:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{firstName} {middleName}</div>
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-500 mb-1">Last Name</label>
-              <div className="text-sm p-2 bg-gray-50 rounded">{lastName}</div>
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Last Name:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{lastName}</div>
+                </div>
+              </div>
+            </div>          
+          </div>
+          <div className="grid grid-cols-3 gap-6">            
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Date of Birth:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.dob || '-'}</div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Birth Place:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.birthplace || '-'}</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-500 mb-1">Date of Birth</label>
-              <div className="text-sm p-2 bg-gray-50 rounded">{user?.dob || '-'}</div>
+          <div className="grid grid-cols-3 gap-6">            
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Nationality:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.dob || '-'}</div>
+                </div>
+              </div>
             </div>
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Driving Licence:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.birthplace || '-'}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-6">            
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Marital Status:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.dob || '-'}</div>
+                </div>
+              </div>
+            </div>          
           </div>
         </div>
       </div>
