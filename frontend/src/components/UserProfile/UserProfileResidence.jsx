@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosClient from '../../axios-client.js';
+import Initials from './Initials.jsx';
 
 const UserProfileResidence = () => {
   const [user, setUser] = useState(null);
@@ -28,18 +29,62 @@ const UserProfileResidence = () => {
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="space-y-6">
            <div className="justify-center text-zinc-800 text-4xl font-bold font-['Open_Sans']">Residence Information</div>
-          <div className="w-24 h-24 max-w-[658.60px] relative bg-zinc-500 rounded-[44.50px] overflow-hidden">
-            <div className="left-[20.77px] top-[27.41px] absolute justify-center text-white text-3xl font-bold font-['Open_Sans'] leading-9">MD</div>
+          <Initials user={user}/>
+
+          <div className="grid grid-cols-2 gap-6">            
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Province:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.province||'-'}</div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">District:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.district||'-'}</div>
+                </div>
+              </div>
+            </div>          
           </div>
-          <div className="grid grid-cols-3 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-500 mb-1">City</label>
-              <div className="text-sm p-2 bg-gray-50 rounded">{user?.city || '-'}</div>
+
+          <div className="grid grid-cols-2 gap-6">            
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Sector:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.sector||'-'}</div>
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-500 mb-1">Address</label>
-              <div className="text-sm p-2 bg-gray-50 rounded">{user?.address || '-'}</div>
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Cell:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.cell||'-'}</div>
+                </div>
+              </div>
+            </div>          
+          </div>
+          <div className="grid grid-cols-2 gap-6">            
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Village:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.village||'-'}</div>
+                </div>
+              </div>
             </div>
+            <div className="w-full max-w-[555px] px-3.5 inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-center text-stone-900 text-sm font-normal font-['Open_Sans']">Occupation:</div>
+              <div className="self-stretch h-11 px-3 rounded-lg outline outline-1 outline-offset-[-1px] outline-zinc-300 flex flex-col justify-center items-start overflow-hidden">
+                <div className="self-stretch flex flex-col justify-start items-start overflow-hidden">
+                  <div className="self-stretch justify-center text-zinc-500 text-sm font-normal font-['Open_Sans']">{user?.occupation||'-'}</div>
+                </div>
+              </div>
+            </div>          
           </div>
         </div>
       </div>
