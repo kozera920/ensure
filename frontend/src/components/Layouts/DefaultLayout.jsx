@@ -9,6 +9,7 @@ import Footer from '../../components/Layouts/Footer.jsx'
 const DefaultLayout = () => {
  
   const [showWelcome, setShowWelcome] = useState(false);
+  const [showNavBar, setShowNavBar] = useState(false);
   
   useEffect(() => {
     if (localStorage.getItem('isNewUser') === 'true') {
@@ -20,10 +21,10 @@ const DefaultLayout = () => {
   return (
     <div id="defaultLayout" className="flex min-h-screen">
       {/* Sidebar */}
-      <Aside/>
+      <Aside showNavBar={showNavBar} setShowNavBar={setShowNavBar} />
       {/* Main Content */}
       <div className="flex-1 flex flex-col bg-custom-dashboard">
-        <Header/>
+        <Header showNavBar={showNavBar} setShowNavBar={setShowNavBar} />
         <main className="flex-1 p-6">
           {showWelcome && <WelcomeMessage />}        
           <Outlet />

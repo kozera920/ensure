@@ -5,6 +5,7 @@
     "carBrand": "Toyota Land Cruiser",
     "plateNumber": "RAD 123 A",
     "policyNumber": "123456",
+    "dueDate": "2024-12-31",
     "status": "active"
   },
   {
@@ -12,14 +13,16 @@
     "insuranceCompanyName": "Prime Insurance",
     "carBrand": "Suzuki Swift",
     "plateNumber": "RAB 456 B",
+    "dueDate": "2024-11-30",
     "policyNumber": "654321",
     "status": "not active"
   },
   {
     "id": 3,
-    "insuranceCompanyName": "Radiant Insurance Company",
+    "insuranceCompanyName": "Sonarwa Insurance",
     "carBrand": "Hyundai Tucson",
     "plateNumber": "RAC 789 C",
+    "dueDate": "2025-01-15",
     "policyNumber": "789123",
     "status": "active"
   },
@@ -28,6 +31,7 @@
     "insuranceCompanyName": "Soras Insurance",
     "carBrand": "Kia Sportage",
     "plateNumber": "RAD 234 D",
+    "dueDate": "2024-10-20",
     "policyNumber": "321987",
     "status": "not active"
   },
@@ -36,6 +40,7 @@
     "insuranceCompanyName": "Radiant Insurance Company",
     "carBrand": "Mitsubishi Pajero",
     "plateNumber": "RAB 567 E",
+    "dueDate": "2025-02-28",
     "policyNumber": "456789",
     "status": "active"
   }
