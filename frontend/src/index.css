@@ -37,11 +37,11 @@ body {
 }
 
 .text-custom-blue {
-  color: #064E89;
+  color: var(--custom-blue);
 }
 
 .bg-custom-blue {
-  background: #064E89;
+  background: var(--custom-blue);
 }
 
 .bg-custom-dashboard {
@@ -49,7 +49,7 @@ body {
 }
 
 .custom-blue-border {
-  border: 1.5px solid #064E89;
+  border: 1.5px solid var(--custom-blue);
 }
 
 .file-claim-form {
@@ -79,6 +79,6 @@ body {
   padding: 4px;
 }
 .file-claim-form label{
-  color: #064E89;
+  color: var(--custom-blue);
   font-weight: 600; 
 }

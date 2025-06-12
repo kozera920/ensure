@@ -9,6 +9,7 @@ import SummaryTab from "../components/claims/tabs/SummaryTab";
 import DriverTabB from "../components/claims/tabs/DriverTabB";
 import { Icon } from "@iconify/react";
 import VehicleTabB from "../components/claims/tabs/VehicleTabB";
+
 const tabs_ = [
   {
     label: "Story",
@@ -57,6 +58,16 @@ const FileAClaim = () => {
   const [vehicleInvolved, setVehicleInvolved] = useState(1);
   const [tabs, setTabs] = useState(tabs_);
   const [drivers, setDrivers] = useState([]);
+  const [formData, setFormData] = useState({
+    story: {},
+    driver: {},
+    otherDrivers: [],
+    vehicle: {},
+    otherVehicles: [],
+    police: {},
+    injuredPeople: {},
+    witnesses: {},
+  });
 
   const handleNextTab = () => {
     const currentIndex = tabs.indexOf(activeTab);
@@ -70,6 +81,13 @@ const FileAClaim = () => {
     if (currentIndex > 0) {
       setActiveTab(tabs[currentIndex - 1]);
     }
+  };
+
+  const handleFormDataChange = (tabName, data) => {
+    setFormData((prev) => ({
+      ...prev,
+      [tabName]: data,
+    }));
   };
 
   useEffect(() => {
@@ -100,6 +118,10 @@ const FileAClaim = () => {
     }
   }, [vehicleInvolved, activeTab.label]);
 
+  const saveDraft = () => {
+    console.log("Saving draft:", formData);
+  };
+
   return (
     <div className="px-2 py-4 pt-0 text-xs sm:px-4 sm:py-6">
       <h1 className="text-2xl sm:text-3xl font-bold text-custom-blue mb-4">
@@ -109,13 +131,17 @@ const FileAClaim = () => {
       <div className="bg-white rounded-xl shadow-md p-3 sm:p-6">
         {/* Save as draft */}
         <div className="flex justify-end mt-2 sm:mt-4">
-          <button className="bg-gray-500 text-white px-4 py-2 sm:px-5 rounded-[50px] hover:bg-gray-600 transition text-xs sm:text-sm">
+          <button
+            className="bg-gray-500 text-white px-4 py-2 sm:px-5 rounded-[50px] hover:bg-gray-600 transition text-xs sm:text-sm cursor-pointer"
+            onClick={saveDraft}
+          >
             Save as draft
           </button>
         </div>
+
         {/* Tabs */}
         <div className="border-b border-gray-200 mb-4 overflow-x-auto">
-          <ul className="flex  flex-wrap space-x-2 sm:space-x-4 text-xs uppercase sm:text-sm whitespace-nowrap file-claim-tab">
+          <ul className="flex flex-wrap space-x-2 sm:space-x-4 text-xs uppercase sm:text-sm whitespace-nowrap file-claim-tab">
             {tabs.map((tab) => (
               <li
                 key={tab.label}
@@ -139,34 +165,65 @@ const FileAClaim = () => {
             <StoryTab
               vehicleInvolved={vehicleInvolved}
               setVehicleInvolved={setVehicleInvolved}
+              onFormDataChange={(data) => handleFormDataChange("story", data)}
             />
           )}
-          {activeTab.label === "Driver" && <DriverTab />}
+          {activeTab.label === "Driver" && (
+            <DriverTab
+              onFormDataChange={(data) => handleFormDataChange("driver", data)}
+            />
+          )}
           {activeTab.label === "Other Drivers" && (
             <DriverTabB
               vehicleInvolved={vehicleInvolved}
               setVehicleInvolved={setVehicleInvolved}
               drivers={drivers}
               setDrivers={setDrivers}
+              onFormDataChange={(data) =>
+                handleFormDataChange("otherDrivers", data)
+              }
             />
           )}
-          {activeTab.label === "Vehicle" && <VehicleTab />}
+          {activeTab.label === "Vehicle" && (
+            <VehicleTab
+              onFormDataChange={(data) => handleFormDataChange("vehicle", data)}
+            />
+          )}
           {activeTab.label === "Other Vehicles" && (
             <VehicleTabB
               vehicleInvolved={vehicleInvolved}
               setVehicleInvolved={setVehicleInvolved}
               drivers={drivers}
+              onFormDataChange={(data) =>
+                handleFormDataChange("otherVehicles", data)
+              }
             />
           )}
-          {activeTab.label === "Police" && <PoliceTab />}
-          {activeTab.label === "Injured people" && <InjuredPeopleTab />}
-          {activeTab.label === "Witnesses" && <WitnessesTab />}
-          {activeTab.label === "Summary" && <SummaryTab />}
+          {activeTab.label === "Police" && (
+            <PoliceTab
+              onFormDataChange={(data) => handleFormDataChange("police", data)}
+            />
+          )}
+          {activeTab.label === "Injured people" && (
+            <InjuredPeopleTab
+              onFormDataChange={(data) =>
+                handleFormDataChange("injuredPeople", data)
+              }
+            />
+          )}
+          {activeTab.label === "Witnesses" && (
+            <WitnessesTab
+              onFormDataChange={(data) =>
+                handleFormDataChange("witnesses", data)
+              }
+            />
+          )}
+          {activeTab.label === "Summary" && <SummaryTab formData={formData} />}
         </div>
 
         <div
           className={`flex flex-col-reverse sm:flex-row ${
-            activeTab === "Story" ? "justify-end" : "justify-between"
+            activeTab.label === "Story" ? "justify-end" : "justify-between"
           } mt-6 gap-2`}
         >
           {activeTab.label !== "Story" && (

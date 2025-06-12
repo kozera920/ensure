@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 
-const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers }) => { 
+const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers, onFormDataChange }) => { 
 
   // Initialize drivers based on vehicleInvolved
   useEffect(() => {
@@ -9,7 +9,7 @@ const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers }
     const newDrivers = [];
     
     for (let i = 0; i < numDrivers; i++) {
-      const driverId = String.fromCharCode(66 + i); // B=66, C=67, D=68, etc.
+      const driverId = String.fromCharCode(66 + i);
       newDrivers.push({
         id: driverId,
         haveDetails: 'no',
@@ -28,6 +28,7 @@ const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers }
     }
     
     setDrivers(newDrivers);
+    if (onFormDataChange) onFormDataChange(formatDriverData(newDrivers));
   }, [vehicleInvolved]);
 
   const addNewDriver = () => {
@@ -49,8 +50,8 @@ const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers }
     };
     const newDrivers = [...drivers, newDriver];
     setDrivers(newDrivers);
-    // Update vehicleInvolved to reflect the new total (drivers + 1 for driver A)
     setVehicleInvolved(newDrivers.length + 1);
+    if (onFormDataChange) onFormDataChange(formatDriverData(newDrivers));
   };
 
   const removeDriver = (driverId) => {
@@ -58,26 +59,68 @@ const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers }
       const newDrivers = drivers.filter(driver => driver.id !== driverId);
       setDrivers(newDrivers); 
       setVehicleInvolved(newDrivers.length + 1);
+      if (onFormDataChange) onFormDataChange(formatDriverData(newDrivers));
     }
   };
 
   const updateDriver = (driverId, field, value) => {
-    setDrivers(drivers.map(driver => 
+    const newDrivers = drivers.map(driver => 
       driver.id === driverId 
         ? { ...driver, [field]: value }
         : driver
-    ));
+    );
+    setDrivers(newDrivers);
+    if (onFormDataChange) onFormDataChange(formatDriverData(newDrivers));
   };
 
   const updateDriverPersonalDetails = (driverId, field, value) => {
-    setDrivers(drivers.map(driver => 
+    const newDrivers = drivers.map(driver => 
       driver.id === driverId 
         ? { 
             ...driver, 
             personalDetails: { ...driver.personalDetails, [field]: value }
           }
         : driver
-    ));
+    );
+    setDrivers(newDrivers);
+    if (onFormDataChange) onFormDataChange(formatDriverData(newDrivers));
+  };
+
+  const handleFileUpload = (driverId, files) => {
+    const file = files[0];
+    const newDrivers = drivers.map(driver => 
+      driver.id === driverId 
+        ? { ...driver, imageFile: file }
+        : driver
+    );
+    setDrivers(newDrivers);
+    if (onFormDataChange) onFormDataChange(formatDriverData(newDrivers));
+  };
+
+  const formatDriverData = (driversData) => {
+    return {
+      otherDrivers: driversData.map(driver => ({
+        driverId: driver.id,
+        hasDetails: driver.haveDetails === 'yes',
+        detailsMethod: driver.inputType,
+        ...(driver.haveDetails === 'yes' && {
+          details: {
+            ...(driver.inputType === 'fill_in_form' ? {
+              firstName: driver.personalDetails.firstName,
+              lastName: driver.personalDetails.lastName,
+              phoneNumber: driver.personalDetails.phoneNumber,
+              licenseNumber: driver.personalDetails.licenseNumber,
+              category: driver.personalDetails.category,
+              expiryDate: driver.personalDetails.expiryDate,
+              issuedBy: driver.personalDetails.issuedBy
+            } : {
+              licenseImage: driver.imageFile,
+              phoneNumber: driver.personalDetails.phoneNumber
+            })
+          }
+        })
+      }))
+    };
   };
 
   return (
@@ -86,7 +129,6 @@ const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers }
         <p className="text-sm text-gray-600">
           <strong>Drivers involved ({vehicleInvolved} total)</strong>
         </p>
-        
       </div>
 
       {drivers.map((driver, index) => (
@@ -97,94 +139,95 @@ const DriverTabB = ({ vehicleInvolved, setVehicleInvolved, drivers, setDrivers }
           onUpdate={updateDriver}
           onUpdatePersonalDetails={updateDriverPersonalDetails}
           onRemove={removeDriver}
+          onFileUpload={handleFileUpload}
         />
       ))}
 
-        <div className="flex">
-          <button
-            type="button"
-            onClick={addNewDriver}
-            className="bg-custom-blue text-white px-4 py-2 rounded text-xs font-medium transition-colors"
-          >
-            Add another driver 
-          </button>
-        </div>
+      <div className="flex">
+        <button
+          type="button"
+          onClick={addNewDriver}
+          className="bg-custom-blue text-white px-4 py-2 rounded text-xs font-medium transition-colors"
+        >
+          Add another driver 
+        </button>
+      </div>
     </div>
   );
 };
 
-const DriverForm = ({ driver, canRemove, onUpdate, onUpdatePersonalDetails, onRemove }) => {
+const DriverForm = ({ driver, canRemove, onUpdate, onUpdatePersonalDetails, onRemove, onFileUpload }) => {
   return (
-    <form className="space-y-6 mt-4 ">
-    <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">
-      <div className="flex justify-between items-center mb-4">
-        <h4 className="text-sm font-bold text-gray-800">
-          Personal details of driver {driver.id}
-        </h4>
-        {canRemove && (
-          <button
-            type="button"
-            onClick={() => onRemove(driver.id)}
-            className=" text-custom-gray px-3 py-1 rounded text-xs font-medium transition-colors cursor-pointer hover:bg-gray-200"
-            title={`Remove driver ${driver.id}`}
-          >
-            <Icon icon="gg:remove" width="24" height="24" />
-          </button>
-        )}
-      </div>
-
-      <div className="space-y-6">
-        <div>
-          <label className="block font-medium mb-2 text-xs">
-            Do you have details of driver {driver.id}?
-          </label>
-          <select
-            className="input w-full text-xs border border-gray-300 rounded px-3 py-2"
-            value={driver.haveDetails}
-            onChange={(e) => onUpdate(driver.id, 'haveDetails', e.target.value)}
-          >
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
+    <form className="space-y-6 mt-4">
+      <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">
+        <div className="flex justify-between items-center mb-4">
+          <h4 className="text-sm font-bold text-gray-800">
+            Personal details of driver {driver.id}
+          </h4>
+          {canRemove && (
+            <button
+              type="button"
+              onClick={() => onRemove(driver.id)}
+              className="text-custom-gray px-3 py-1 rounded text-xs font-medium transition-colors cursor-pointer hover:bg-gray-200"
+              title={`Remove driver ${driver.id}`}
+            >
+              <Icon icon="gg:remove" width="24" height="24" />
+            </button>
+          )}
         </div>
 
-        {driver.haveDetails === "yes" && (
-          <>
-            <div>
-              <label className="block font-medium mb-2 text-xs">
-                Select input option
-              </label>
-              <select
-                className="input w-full text-xs border border-gray-300 rounded px-3 py-2"
-                onChange={(e) => onUpdate(driver.id, 'inputType', e.target.value)}
-                value={driver.inputType}
-              >
-                <option value="fill_in_form">Fill in form</option>
-                <option value="upload_image">Upload image</option>
-              </select>
-            </div>
+        <div className="space-y-6">
+          <div>
+            <label className="block font-medium mb-2 text-xs">
+              Do you have details of driver {driver.id}?
+            </label>
+            <select
+              className="input w-full text-xs border border-gray-300 rounded px-3 py-2"
+              value={driver.haveDetails}
+              onChange={(e) => onUpdate(driver.id, 'haveDetails', e.target.value)}
+            >
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
 
-            <div>
-              <h4 className="text-sm font-bold mb-4 text-gray-700">
-                Personal details of driver {driver.id}
-              </h4>
-              {driver.inputType === "fill_in_form" && (
-                <FillInForm 
-                  driver={driver} 
-                  onUpdatePersonalDetails={onUpdatePersonalDetails} 
-                />
-              )}
-              {driver.inputType === "upload_image" && (
-                <UploadImage 
-                  driver={driver} 
-                  onUpdate={onUpdate}
-                  onUpdatePersonalDetails={onUpdatePersonalDetails} 
-                />
-              )}
-            </div>
-          </>
-        )}
-      </div>
+          {driver.haveDetails === "yes" && (
+            <>
+              <div>
+                <label className="block font-medium mb-2 text-xs">
+                  Select input option
+                </label>
+                <select
+                  className="input w-full text-xs border border-gray-300 rounded px-3 py-2"
+                  onChange={(e) => onUpdate(driver.id, 'inputType', e.target.value)}
+                  value={driver.inputType}
+                >
+                  <option value="fill_in_form">Fill in form</option>
+                  <option value="upload_image">Upload image</option>
+                </select>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-bold mb-4 text-gray-700">
+                  Personal details of driver {driver.id}
+                </h4>
+                {driver.inputType === "fill_in_form" && (
+                  <FillInForm 
+                    driver={driver} 
+                    onUpdatePersonalDetails={onUpdatePersonalDetails} 
+                  />
+                )}
+                {driver.inputType === "upload_image" && (
+                  <UploadImage 
+                    driver={driver} 
+                    onFileUpload={(files) => onFileUpload(driver.id, files)}
+                    onUpdatePersonalDetails={onUpdatePersonalDetails} 
+                  />
+                )}
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </form>
   );
@@ -268,7 +311,7 @@ const FillInForm = ({ driver, onUpdatePersonalDetails }) => {
   );
 };
 
-const UploadImage = ({ driver, onUpdate, onUpdatePersonalDetails }) => {
+const UploadImage = ({ driver, onFileUpload, onUpdatePersonalDetails }) => {
   return (
     <div className="space-y-4">
       <div>
@@ -278,7 +321,8 @@ const UploadImage = ({ driver, onUpdate, onUpdatePersonalDetails }) => {
         <input 
           type="file" 
           className="input w-full text-xs border border-gray-300 rounded px-3 py-2"
-          onChange={(e) => onUpdate(driver.id, 'imageFile', e.target.files[0])}
+          onChange={(e) => onFileUpload(e.target.files)}
+          accept="image/*"
         />
       </div>
 

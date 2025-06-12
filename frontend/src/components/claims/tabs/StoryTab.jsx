@@ -60,9 +60,127 @@ const GoToMyLocation = ({ setMarker }) => {
   );
 };
 
-const StoryTab = ({ vehicleInvolved, setVehicleInvolved }) => {
+const StoryTab = ({ vehicleInvolved, setVehicleInvolved, onFormDataChange }) => {
   const [locationFillingType, setLocationFillingType] = useState("form");
   const [markerPosition, setMarkerPosition] = useState(null);
+  const [formData, setFormData] = useState({
+    vehiclesInvolved: vehicleInvolved,
+    accidentDate: '',
+    accidentTime: '',
+    location: {
+      type: 'form',
+      coordinates: null,
+      address: {
+        province: '',
+        district: '',
+        sector: '',
+        cell: '',
+        village: ''
+      }
+    },
+    description: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name === 'vehiclesInvolved') {
+      setVehicleInvolved(value);
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    if (onFormDataChange) {
+      onFormDataChange({
+        ...formData,
+        [name]: value
+      });
+    }
+  };
+
+  const handleLocationTypeChange = (e) => {
+    const type = e.target.value;
+    setLocationFillingType(type);
+    
+    const updatedFormData = {
+      ...formData,
+      location: {
+        ...formData.location,
+        type
+      }
+    };
+    
+    setFormData(updatedFormData);
+    if (onFormDataChange) onFormDataChange(updatedFormData);
+  };
+
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    const updatedFormData = {
+      ...formData,
+      location: {
+        ...formData.location,
+        address: {
+          ...formData.location.address,
+          [name]: value
+        }
+      }
+    };
+    
+    setFormData(updatedFormData);
+    if (onFormDataChange) onFormDataChange(updatedFormData);
+  };
+
+  const handleMapLocationSelect = (latlng) => {
+    setMarkerPosition(latlng);
+    
+    const updatedFormData = {
+      ...formData,
+      location: {
+        ...formData.location,
+        coordinates: {
+          lat: latlng.lat,
+          lng: latlng.lng
+        }
+      }
+    };
+    
+    setFormData(updatedFormData);
+    if (onFormDataChange) onFormDataChange(updatedFormData);
+  };
+
+  const handleDescriptionChange = (e) => {
+    const description = e.target.value;
+    const updatedFormData = {
+      ...formData,
+      description
+    };
+    
+    setFormData(updatedFormData);
+    if (onFormDataChange) onFormDataChange(updatedFormData);
+  };
+
+  const formatFormData = () => {
+    return {
+      accidentDetails: {
+        date: formData.accidentDate,
+        time: formData.accidentTime,
+        vehiclesInvolved: parseInt(formData.vehiclesInvolved),
+        description: formData.description
+      },
+      location: formData.location.type === 'map' ? {
+        type: 'coordinates',
+        lat: formData.location.coordinates?.lat,
+        lng: formData.location.coordinates?.lng
+      } : {
+        type: 'address',
+        ...formData.location.address
+      }
+    };
+  };
 
   return (
     <form className="space-y-6 mt-6 file-claim-form">
@@ -76,15 +194,34 @@ const StoryTab = ({ vehicleInvolved, setVehicleInvolved }) => {
           <label className="block font-medium mb-2 text-xs">
             How many vehicles were involved
           </label>
-          <input type="number" className="input w-full text-xs" placeholder="Enter number of vehicles involved" value={vehicleInvolved} onChange={(e) => setVehicleInvolved(e.target.value)} />
+          <input 
+            type="number" 
+            name="vehiclesInvolved"
+            className="input w-full text-xs" 
+            placeholder="Enter number of vehicles involved" 
+            value={formData.vehiclesInvolved} 
+            onChange={handleInputChange} 
+          />
         </div>
         <div>
           <label className="block font-medium mb-2 text-xs">Date of Accident</label>
-          <input type="date" className="input w-full text-xs" />
+          <input 
+            type="date" 
+            name="accidentDate"
+            className="input w-full text-xs" 
+            value={formData.accidentDate}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
           <label className="block font-medium mb-2 text-xs">Time of Accident</label>
-          <input type="time" className="input w-full text-xs" />
+          <input 
+            type="time" 
+            name="accidentTime"
+            className="input w-full text-xs" 
+            value={formData.accidentTime}
+            onChange={handleInputChange}
+          />
         </div>
       </div>
 
@@ -94,7 +231,7 @@ const StoryTab = ({ vehicleInvolved, setVehicleInvolved }) => {
         <select
           className="input w-full text-xs"
           value={locationFillingType}
-          onChange={(e) => setLocationFillingType(e.target.value)}
+          onChange={handleLocationTypeChange}
         >
           <option value="form">Use form</option>
           <option value="map">Use map</option>
@@ -112,7 +249,7 @@ const StoryTab = ({ vehicleInvolved, setVehicleInvolved }) => {
           {/* My Location Button */}
           <MapContainer center={[-1.95, 30.06]} zoom={8} className="h-64 rounded overflow-hidden relative z-0">
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <LocationPicker onSelect={setMarkerPosition} />
+            <LocationPicker onSelect={handleMapLocationSelect} />
             <GoToMyLocation setMarker={setMarkerPosition} />
             {markerPosition && <Marker position={markerPosition} />}
           </MapContainer>
@@ -129,20 +266,45 @@ const StoryTab = ({ vehicleInvolved, setVehicleInvolved }) => {
       {/* Manual Location Form */}
       {locationFillingType === "form" && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <select className="input text-xs">
-            <option>Province</option>
+          <select 
+            name="province"
+            className="input text-xs"
+            value={formData.location.address.province}
+            onChange={handleAddressChange}
+          >
+            <option value="">Province</option>
           </select>
-          <select className="input text-xs">
-            <option>District</option>
+          <select 
+            name="district"
+            className="input text-xs"
+            value={formData.location.address.district}
+            onChange={handleAddressChange}
+          >
+            <option value="">District</option>
           </select>
-          <select className="input text-xs">
-            <option>Sector</option>
+          <select 
+            name="sector"
+            className="input text-xs"
+            value={formData.location.address.sector}
+            onChange={handleAddressChange}
+          >
+            <option value="">Sector</option>
           </select>
-          <select className="input text-xs">
-            <option>Cell</option>
+          <select 
+            name="cell"
+            className="input text-xs"
+            value={formData.location.address.cell}
+            onChange={handleAddressChange}
+          >
+            <option value="">Cell</option>
           </select>
-          <select className="input text-xs">
-            <option>Village</option>
+          <select 
+            name="village"
+            className="input text-xs"
+            value={formData.location.address.village}
+            onChange={handleAddressChange}
+          >
+            <option value="">Village</option>
           </select>
         </div>
       )}
@@ -152,7 +314,12 @@ const StoryTab = ({ vehicleInvolved, setVehicleInvolved }) => {
         <label className="block font-medium mb-2 mt-4 text-xs">
           In your words, explain what happened
         </label>
-        <textarea className="input w-full h-32 resize text-xs" placeholder="Write here..." />
+        <textarea 
+          className="input w-full h-32 resize text-xs" 
+          placeholder="Write here..."
+          value={formData.description}
+          onChange={handleDescriptionChange}
+        />
       </div>
     </form>
   );
