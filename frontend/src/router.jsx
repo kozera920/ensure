@@ -12,6 +12,10 @@ import PolicyDetails from './pages/policies/PolicyDetails';
 import InactivePolicies from './pages/InactivePolicies.jsx';
 import InprogressPolicies from './pages/InprogressPolicies.jsx';
 import BuyNewPolicy from './pages/BuyPolicy/BuyNewPolicy.jsx';
+import PolicyClaims from './pages/PolicyClaims.jsx';
+import ExternalClaims from './pages/ExternalClaims.jsx';
+import FileAClaim from './pages/FileAClaim.jsx';
+import FileExternalClaim from './pages/FileExternalClaim.jsx';
 
 const router = createBrowserRouter([
     {
@@ -50,6 +54,33 @@ const router = createBrowserRouter([
                 path:'/policy/:id',
                 element: <PolicyDetails/>
             }
+        ]
+    },
+    {
+        path: '/claims',
+        element: <DefaultLayout />,
+        children: [
+            {
+                path: '/claims',
+                element: <Navigate to='/claims/policy_claims' />
+            },
+            {
+                path: '/claims/policy_claims',
+                element: <PolicyClaims />
+            },
+             {
+                path: '/claims/external_claims',
+                element: <ExternalClaims />
+            },
+            {
+                path: '/claims/file_a_claim/:id',
+                element: <FileAClaim />
+            },
+            {
+                path: '/claims/file_external_claim',
+                element: <FileExternalClaim />
+            },
+
         ]
     },
     {

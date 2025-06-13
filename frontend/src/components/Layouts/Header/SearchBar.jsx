@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div className="relative w-1/3">
+    <div className="relative w-1/3 hidden sm:block">
       <input
         type="text"
         placeholder="Type here to search..."

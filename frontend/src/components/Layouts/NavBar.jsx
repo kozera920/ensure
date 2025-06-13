@@ -22,8 +22,8 @@ const menus = [
     img: <img src={article} className="inline mr-2" />,
     label: 'Claims',
     items: [
-      { to: '#', label: 'Policy Claims' },
-      { to: '#', label: 'External Claims' },
+      { to: '/claims/policy_claims', label: 'Policy Claims' },
+      { to: '/claims/external_claims', label: 'External Claims' },
     ],
   },
   {
@@ -62,11 +62,18 @@ const NavBar = () => {
           </button>
           {openMenus.includes(menu.key) && (
             <ul className="mt-2 space-y-2 w-full flex flex-col mrleft-27px leading-9">
-              {menu.items.map((item, idx) => (
-                <li key={idx} className="w-full">
-                  <Link className="text-base text-custom-gray font-opensans" to={item.to}>{item.label}</Link>
-                </li>
-              ))}
+             {menu.items.map((item, idx) => { 
+                return (
+                  <li key={idx} className="w-full">
+                    <Link
+                      to={item.to}
+                      className={`text-base font-opensans text-custom-gray`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           )}
         </div>

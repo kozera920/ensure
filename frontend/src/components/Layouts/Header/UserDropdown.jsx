@@ -37,7 +37,7 @@ const UserDropdown = ({ user, onLogout }) => {
         <div className="w-10 h-10 bg-gray-200 rounded-md flex items-center justify-center font-semibold">
           {getInitials(user?.name)}
         </div>
-        <div className="flex flex-col">
+        <div className=" flex-col hidden sm:flex">
           <span className="text-sm">{user?.name || ""}</span>
           <span className="text-xs text-blue-700">
             {user?.user_type || ""}
@@ -54,7 +54,7 @@ const UserDropdown = ({ user, onLogout }) => {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-[10px] shadow-lg z-50 overflow-hidden">
           {/* Profile Header */}
-          <div className="px-5 py-5 bg-custom-blue rounded-tl-[10px] rounded-tr-[10px]">
+          <div className="px-5 py-5 bg-custom-blue rounded-tl-[10px] rounded-tr-[10px] ">
             <div className="text-white text-xl font-bold">{user?.name || "User Name"}</div>
             <div className="text-white text-sm"> {user?.user_type ? `${user.user_type} Account` : "Individual Account"}</div>
           </div>

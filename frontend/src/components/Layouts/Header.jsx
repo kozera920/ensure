@@ -6,8 +6,8 @@ import SearchBar from "./Header/SearchBar.jsx";
 import LanguageSelector from "./Header/LanguageSelectorHeader.jsx";
 import NotificationIcon from "./Header/NotificationIcon.jsx";
 import UserDropdown from "./Header/UserDropdown.jsx";
-
-const Header = () => {
+import { Icon } from "@iconify/react";
+const Header = ({ showNavBar, setShowNavBar }) => {
   const { user, token, setUser, setToken } = useStateContext();
   const [language, setLanguage] = useState("en");
 
@@ -43,8 +43,11 @@ const Header = () => {
   return (
     <header className="p-5">
       <div className="bg-white shadow rounded-md flex items-center p-5">
+        <button className="sm:hidden mr-4 text-custom-blue cursor-pointer" onClick={() => setShowNavBar(!showNavBar)}>
+          <Icon icon="pepicons-pop:menu" width="30" height="30" />
+        </button>
         <SearchBar />
-        
+
         <div className="flex items-center space-x-8 ml-auto">
           <LanguageSelector language={language} setLanguage={setLanguage} />
           <NotificationIcon />
