@@ -1,0 +1,49 @@
+{
+  "cars": [
+    {
+      "year_of_manufacture": 2024,
+      "make": "TOYOTA",
+      "model": "RAV4",
+      "seats_no": 5,
+      "category": "Jeep / SUX-Private",
+      "plate_no": "RAF 564",
+      "chassis_no": "JTJ12345678901234"
+    },
+    {
+      "year_of_manufacture": 2022,
+      "make": "TOYOTA",
+      "model": "Prado",
+      "seats_no": 5,
+      "category": "Jeep / SUX-Private",
+      "plate_no": "RAF 565",
+      "chassis_no": "JTE98765432109876"
+    },
+    {
+      "year_of_manufacture": 2019,
+      "make": "TOYOTA",
+      "model": "Fortuner",
+      "seats_no": 5,
+      "category": "Jeep / SUX-Private",
+      "plate_no": "RAF 566",
+      "chassis_no": "JT1234ABCDEF56789"
+    },
+    {
+      "year_of_manufacture": 2015,
+      "make": "TOYOTA",
+      "model": "Land Cruiser",
+      "seats_no": 5,
+      "category": "Jeep / SUX-Private",
+      "plate_no": "RAF 567",
+      "chassis_no": "JTLC8901234567890"
+    },
+    {
+      "year_of_manufacture": 2024,
+      "make": "TOYOTA",
+      "model": "Harrier",
+      "seats_no": 5,
+      "category": "Jeep / SUX-Private",
+      "plate_no": "RAF 568",
+      "chassis_no": "JTH67890123456789"
+    }
+  ]
+}

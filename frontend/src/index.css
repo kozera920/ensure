@@ -36,8 +36,17 @@ body {
   color:#064E89;
 }
 
+.label-custom-blue {
+    color: #064E89;
+    font-weight: 800;
+}
+
 .bg-custom-blue{
   background:#064E89;
+}
+
+.bg-custom-modal{
+  background-color: #000000ba;
 }
 
 .bg-custom-dashboard{
