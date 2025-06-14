@@ -7,7 +7,8 @@
       "seats_no": 5,
       "category": "Jeep / SUX-Private",
       "plate_no": "RAF 564",
-      "chassis_no": "JTJ12345678901234"
+      "chassis_no": "JTJ12345678901234",
+      "usage" : "private"
     },
     {
       "year_of_manufacture": 2022,
@@ -16,7 +17,8 @@
       "seats_no": 5,
       "category": "Jeep / SUX-Private",
       "plate_no": "RAF 565",
-      "chassis_no": "JTE98765432109876"
+      "chassis_no": "JTE98765432109876",
+      "usage" : "ambulance"
     },
     {
       "year_of_manufacture": 2019,
@@ -25,7 +27,8 @@
       "seats_no": 5,
       "category": "Jeep / SUX-Private",
       "plate_no": "RAF 566",
-      "chassis_no": "JT1234ABCDEF56789"
+      "chassis_no": "JT1234ABCDEF56789",
+      "usage" : "forhire"
     },
     {
       "year_of_manufacture": 2015,
@@ -34,7 +37,8 @@
       "seats_no": 5,
       "category": "Jeep / SUX-Private",
       "plate_no": "RAF 567",
-      "chassis_no": "JTLC8901234567890"
+      "chassis_no": "JTLC8901234567890",
+      "usage" : "taxi"
     },
     {
       "year_of_manufacture": 2024,
@@ -43,7 +47,8 @@
       "seats_no": 5,
       "category": "Jeep / SUX-Private",
       "plate_no": "RAF 568",
-      "chassis_no": "JTH67890123456789"
+      "chassis_no": "JTH67890123456789",
+      "usage" : "private"
     }
   ]
 }

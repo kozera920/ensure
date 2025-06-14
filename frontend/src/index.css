@@ -91,3 +91,22 @@ body {
   color: var(--custom-blue);
   font-weight: 600; 
 }
+
+
+.spinner {
+  border: 2px solid transparent;        
+  border-top: 2px solid #064E89;       
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;                 
+  vertical-align: middle;                
+  margin: 0;                             
+  background: none;                    
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

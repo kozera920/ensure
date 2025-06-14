@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import EditVehicleModal from "../BuyPolicy/EditVehicleModal.jsx";
@@ -20,11 +20,16 @@ const BuyNewPolicy = () => {
   const [ownershipStatus, setOwnershipStatus] = useState("");
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showPremiumBreakdown, setShowPremiumBreakdown] = useState(false);
+  //this cars variable is used in uploading excel and comparison in rra
   const [cars, setCars] = useState([]);
   const [chassisNumber, setChassisNumber] = useState("");
   const [searchChassis, setSearchChassis] = useState("");
   const [fleetFileName, setFleetFileName] = useState("");
   const [carToEdit, setCarToEdit] = useState(null);
+  const [carToDeleteIdx, setCarToDeleteIdx] = React.useState(null);
+  const [fleetCars, setFleetCars] = React.useState([]);
+
+  const [singleCar, setSingleCar] = React.useState(null);
 
   //collection of state variables at top level for policy details when vechicle count is one
   const [vehicleUsage, setVehicleUsage] = useState("");
@@ -54,7 +59,7 @@ const BuyNewPolicy = () => {
   const allExtensionsChecked = Object.values(extensions).every(Boolean);
 
   //handle excel upload
-  const handleExcelFileUpload = (event) => {
+  const handleExcelFileUpload = (event,callback) => {
     const file = event.target.files[0];
     const reader = new FileReader();
 
@@ -64,21 +69,16 @@ const BuyNewPolicy = () => {
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const parsedData = XLSX.utils.sheet_to_json(sheet);
-      setCars(parsedData);
-
-      setShowEditModal(false);
-      setCarToEdit(null);
+      if (callback) {
+          callback(parsedData); 
+        } else {
+          setCars(parsedData); // fallback for old usage
+          setShowEditModal(false);
+          setCarToEdit(null);
+        }
     };
     reader.readAsArrayBuffer(file);
   };
-
-  //chassis number pull from endpoint
-  useEffect(() => {
-    fetch("http://localhost:3001/cars")
-      .then((res) => res.json())
-      .then((data) => setCars(data))
-      .catch((err) => console.error("Failed to fetch cars:", err));
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -145,9 +145,16 @@ const BuyNewPolicy = () => {
 
   const handleDelete = () => {
     setShowDeleteAlert(false);
-    // TODO: Remove vehicle logic here
-    alert("Vehicle removed!");
+    if (vehicleCount === "one") {
+      setCars(prev => prev.filter((_, i) => i !== carToDeleteIdx));
+      setSearchChassis(""); 
+    } else if (vehicleCount === "fleet") {
+      setFleetCars(prev => prev.filter((_, i) => i !== carToDeleteIdx));
+    }
+    setCarToDeleteIdx(null);
   };
+
+  //debug
 
   return (
     <div className="w-full max-w-[1090px] bg-white rounded-lg shadow-[0px_8px_16px_0px_rgba(226,190,253,0.15)] mx-auto overflow-hidden">
@@ -271,12 +278,15 @@ const BuyNewPolicy = () => {
           vehicleUsage={vehicleUsage}
           setVehicleValue={setVehicleValue}
           vehicleValue={vehicleValue}
+          singleCar={singleCar}
+          setSingleCar={setSingleCar}
         />
 
         {/* Vehicle table for displaying vehicles */}
         <VehicleTable
           vehicleCount={vehicleCount}
           cars={cars}
+          setCars={setCars}
           searchChassis={searchChassis}
           chassisNumber={chassisNumber}
           setShowDeleteAlert={setShowDeleteAlert}
@@ -285,6 +295,11 @@ const BuyNewPolicy = () => {
           fleetFileName={fleetFileName}
           setFleetFileName={setFleetFileName}
           setCarToEdit={setCarToEdit}
+          setCarToDeleteIdx={setCarToDeleteIdx}
+          fleetCars={fleetCars}
+          setFleetCars={setFleetCars}
+          singleCar={singleCar}
+          setSingleCar={setSingleCar} 
         />
 
         {/* Ownership status,coverage of passengers,bodily injury */}

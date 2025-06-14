@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { BuildingOffice2Icon, HashtagIcon } from '@heroicons/react/24/outline'
-import { FaCar } from 'react-icons/fa'
 import policies from '../../policies.json'
 import visibility from '../../assets/images/policydetails/visibility.png'
 import radiant_elipse from '../../assets/images/policydetails/radiant_elipse.png'
 import car_icon from '../../assets/images/policydetails/car_icon.png'
 import hashtag from '../../assets/images/policydetails/hashtag.png'
+import { Icon } from "@iconify/react";
 
 const ActivePolicyListings = () => {
     
@@ -40,8 +39,7 @@ const ActivePolicyListings = () => {
                 </div>
             )
         })}
-    </>
-    
+    </>    
   )
 }
 
